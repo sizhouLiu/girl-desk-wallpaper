@@ -1,0 +1,716 @@
+{
+ "cameras": {
+  "SCN_Camera": {
+   "pos": [
+    2.4339,
+    0.8208,
+    1.0071
+   ],
+   "quat": [
+    0.56899,
+    0.43097,
+    -0.49114,
+    0.49929
+   ],
+   "lens": 19.0,
+   "sensor": 36.0,
+   "fov": 64.55128456271177
+  },
+  "CAM_Bedroom": {
+   "pos": [
+    2.55,
+    1.55,
+    1.15
+   ],
+   "quat": [
+    0.57066,
+    0.35569,
+    -0.29998,
+    0.67664
+   ],
+   "lens": 17.0,
+   "sensor": 36.0,
+   "fov": 70.4351851741651
+  },
+  "CAM_Shelf": {
+   "pos": [
+    -1.25,
+    1.7,
+    -0.1
+   ],
+   "quat": [
+    0.411,
+    0.5754,
+    -0.5754,
+    0.411
+   ],
+   "lens": 32.0,
+   "sensor": 36.0,
+   "fov": 41.11209023703316
+  }
+ },
+ "lights": [
+  {
+   "name": "LGT_BedRGB",
+   "type": "POINT",
+   "energy": 18.0,
+   "color": [
+    0.6000000238418579,
+    0.30000001192092896,
+    1.0
+   ],
+   "pos": [
+    -1.7,
+    0.95,
+    -2.22
+   ],
+   "dir": [
+    0.0,
+    -1.0,
+    -0.0
+   ],
+   "size": 0,
+   "radius": 0.30000001192092896
+  },
+  {
+   "name": "LGT_Bounce",
+   "type": "AREA",
+   "energy": 0.0,
+   "color": [
+    0.8500000238418579,
+    0.5199999809265137,
+    0.30000001192092896
+   ],
+   "pos": [
+    -1.9,
+    0.55,
+    -0.6
+   ],
+   "dir": [
+    0.0,
+    -0.342,
+    0.9397
+   ],
+   "size": 2.5,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_Cat",
+   "type": "AREA",
+   "energy": 14.0,
+   "color": [
+    1.0,
+    0.7599999904632568,
+    0.5199999809265137
+   ],
+   "pos": [
+    0.0482,
+    0.8786,
+    1.05
+   ],
+   "dir": [
+    -0.5535,
+    -0.7547,
+    0.3522
+   ],
+   "size": 0.6000000238418579,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_DeskWarm",
+   "type": "AREA",
+   "energy": 5.0,
+   "color": [
+    1.0,
+    0.7200000286102295,
+    0.47999998927116394
+   ],
+   "pos": [
+    0.4,
+    2.3,
+    1.2
+   ],
+   "dir": [
+    0.0,
+    -0.9397,
+    0.342
+   ],
+   "size": 1.600000023841858,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_DeskWarm.001",
+   "type": "AREA",
+   "energy": 6.0,
+   "color": [
+    1.0,
+    0.7799999713897705,
+    0.550000011920929
+   ],
+   "pos": [
+    0.4,
+    2.3,
+    1.2
+   ],
+   "dir": [
+    0.0,
+    -0.9397,
+    0.342
+   ],
+   "size": 1.600000023841858,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_DoorSpill",
+   "type": "AREA",
+   "energy": 8.0,
+   "color": [
+    1.0,
+    0.6800000071525574,
+    0.3799999952316284
+   ],
+   "pos": [
+    -0.29,
+    0.03,
+    -2.32
+   ],
+   "dir": [
+    0.0,
+    -0.0294,
+    0.9996
+   ],
+   "size": 0.699999988079071,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_Fill",
+   "type": "AREA",
+   "energy": 1.5,
+   "color": [
+    0.550000011920929,
+    0.44999998807907104,
+    0.949999988079071
+   ],
+   "pos": [
+    0.0,
+    2.55,
+    -0.4
+   ],
+   "dir": [
+    0.0,
+    -1.0,
+    -0.0
+   ],
+   "size": 3.0,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_LampBulb",
+   "type": "POINT",
+   "energy": 55.0,
+   "color": [
+    1.0,
+    0.6499999761581421,
+    0.3499999940395355
+   ],
+   "pos": [
+    -3.0,
+    1.22,
+    1.95
+   ],
+   "dir": [
+    0.0,
+    -1.0,
+    -0.0
+   ],
+   "size": 0,
+   "radius": 0.05000000074505806
+  },
+  {
+   "name": "LGT_Moon",
+   "type": "AREA",
+   "energy": 45.0,
+   "color": [
+    0.550000011920929,
+    0.6499999761581421,
+    1.0
+   ],
+   "pos": [
+    -1.7,
+    2.75,
+    -2.7
+   ],
+   "dir": [
+    -0.0,
+    -0.8266,
+    0.5628
+   ],
+   "size": 1.0,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_PC",
+   "type": "AREA",
+   "energy": 25.0,
+   "color": [
+    1.0,
+    0.75,
+    0.6000000238418579
+   ],
+   "pos": [
+    1.78,
+    0.72,
+    1.2
+   ],
+   "dir": [
+    0.7186,
+    -0.4079,
+    0.5632
+   ],
+   "size": 0.5,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_PurpleWall",
+   "type": "POINT",
+   "energy": 70.0,
+   "color": [
+    0.550000011920929,
+    0.25,
+    1.0
+   ],
+   "pos": [
+    -2.2,
+    1.1,
+    2.0
+   ],
+   "dir": [
+    0.0,
+    -1.0,
+    -0.0
+   ],
+   "size": 0,
+   "radius": 0.4000000059604645
+  },
+  {
+   "name": "LGT_RGB",
+   "type": "POINT",
+   "energy": 110.0,
+   "color": [
+    0.550000011920929,
+    0.20000000298023224,
+    1.0
+   ],
+   "pos": [
+    2.62,
+    0.3,
+    1.79
+   ],
+   "dir": [
+    0.0,
+    -1.0,
+    -0.0
+   ],
+   "size": 0,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_Screen",
+   "type": "AREA",
+   "energy": 140.0,
+   "color": [
+    0.30000001192092896,
+    0.44999998807907104,
+    1.0
+   ],
+   "pos": [
+    0.95,
+    1.1,
+    2.39
+   ],
+   "dir": [
+    0.0,
+    -1.0,
+    -0.0
+   ],
+   "size": 2.200000047683716,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_Shelf",
+   "type": "AREA",
+   "energy": 8.0,
+   "color": [
+    1.0,
+    0.75,
+    0.5
+   ],
+   "pos": [
+    -2.55,
+    2.05,
+    0.5
+   ],
+   "dir": [
+    -0.7071,
+    -0.7071,
+    -0.0
+   ],
+   "size": 2.4000000953674316,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_ShelfLamp",
+   "type": "AREA",
+   "energy": 10.0,
+   "color": [
+    1.0,
+    0.6800000071525574,
+    0.4000000059604645
+   ],
+   "pos": [
+    -2.45,
+    1.7,
+    -0.05
+   ],
+   "dir": [
+    -0.8517,
+    -0.5241,
+    -0.0
+   ],
+   "size": 0.6000000238418579,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_ShelfLamp.001",
+   "type": "AREA",
+   "energy": 8.0,
+   "color": [
+    1.0,
+    0.7200000286102295,
+    0.44999998807907104
+   ],
+   "pos": [
+    -2.45,
+    1.7,
+    1.05
+   ],
+   "dir": [
+    -0.8517,
+    -0.5241,
+    -0.0
+   ],
+   "size": 0.6000000238418579,
+   "radius": 0.0
+  },
+  {
+   "name": "LGT_Window",
+   "type": "AREA",
+   "energy": 30.0,
+   "color": [
+    0.550000011920929,
+    0.6200000047683716,
+    1.0
+   ],
+   "pos": [
+    -3.2408,
+    2.53,
+    1.959
+   ],
+   "dir": [
+    0.0,
+    -0.2079,
+    -0.9781
+   ],
+   "size": 1.7999999523162842,
+   "radius": 0.0
+  }
+ ],
+ "books": {
+  "BOOK_001": "Deep Learning",
+  "BOOK_003": "Dive into Deep Learning",
+  "BOOK_004": "Understanding Deep Learning",
+  "BOOK_005": "Deep Learning: Foundations and Concepts",
+  "BOOK_006": "Pattern Recognition and Machine Learning",
+  "BOOK_007": "Probabilistic Machine Learning",
+  "BOOK_008": "Reinforcement Learning: An Introduction",
+  "BOOK_009": "The Elements of Statistical Learning",
+  "BOOK_010": "深度学习",
+  "BOOK_012": "动手学深度学习",
+  "BOOK_013": "机器学习",
+  "BOOK_014": "统计学习方法",
+  "BOOK_015": "Hands-On Large Language Models",
+  "BOOK_020": "Build a Large Language Model (From Scratch)",
+  "BOOK_021": "大规模语言模型：从理论到实践",
+  "BOOK_022": "Speech and Language Processing",
+  "BOOK_023": "Natural Language Processing with Transformers",
+  "BOOK_024": "LLM Engineer's Handbook",
+  "BOOK_030": "Prompt Engineering for LLMs",
+  "BOOK_031": "Generative Deep Learning",
+  "BOOK_032": "Real-Time Rendering 4th Ed.",
+  "BOOK_034": "Physically Based Rendering 4th Ed.",
+  "BOOK_035": "Fundamentals of Computer Graphics",
+  "BOOK_036": "GPU Gems",
+  "BOOK_037": "Programming Massively Parallel Processors",
+  "BOOK_038": "Professional CUDA C Programming",
+  "BOOK_039": "CUDA by Example",
+  "BOOK_040": "Ray Tracing Gems",
+  "BOOK_041": "Computer Graphics: Principles and Practice",
+  "BOOK_042": "OpenGL Programming Guide",
+  "BOOK_044": "Game Engine Architecture",
+  "BOOK_045": "CUDA Programming",
+  "BOOK_046": "GPU Pro 7",
+  "BOOK_047": "Designing Machine Learning Systems",
+  "BOOK_052": "AI Engineering",
+  "BOOK_053": "机器学习系统：设计和实现",
+  "BOOK_054": "Site Reliability Engineering",
+  "BOOK_055": "Kubernetes in Action",
+  "BOOK_061": "Systems Performance",
+  "BOOK_062": "Computer Systems: A Programmer's Perspective",
+  "BOOK_063": "Designing Data-Intensive Applications",
+  "BOOK_067": "Database Internals",
+  "BOOK_068": "Streaming Systems",
+  "BOOK_069": "Computer Architecture: A Quantitative Approach",
+  "BOOK_070": "Spark: The Definitive Guide",
+  "BOOK_071": "Hadoop: The Definitive Guide",
+  "BOOK_076": "Operating Systems: Three Easy Pieces",
+  "BOOK_077": "Readings in Database Systems",
+  "BOOK_078": "Introduction to Algorithms 4th Ed.",
+  "BOOK_082": "Algorithms 4th Ed.",
+  "BOOK_083": "The Algorithm Design Manual",
+  "BOOK_084": "The Art of Multiprocessor Programming",
+  "BOOK_085": "Algorithms",
+  "BOOK_086": "Algorithm Design",
+  "BOOK_091": "Data Structures and Algorithm Analysis in C++",
+  "BOOK_092": "算法导论"
+ },
+ "interactive": {
+  "lamp": [
+   {
+    "name": "PROP_Lamp",
+    "min": [
+     -3.0801,
+     0.8,
+     2.1305
+    ],
+    "max": [
+     -2.9199,
+     1.32,
+     1.7695
+    ]
+   }
+  ],
+  "clock": [
+   {
+    "name": "PROP_Clock",
+    "min": [
+     1.2876,
+     0.8,
+     2.0005
+    ],
+    "max": [
+     1.4394,
+     0.93,
+     1.8995
+    ]
+   }
+  ],
+  "cat": [
+   {
+    "name": "PROP_CatSleep2",
+    "min": [
+     0.9833,
+     -0.0229,
+     1.5762
+    ],
+    "max": [
+     1.4233,
+     0.2344,
+     1.1594
+    ]
+   }
+  ],
+  "window": [
+   {
+    "name": "BWIN_NightView",
+    "min": [
+     -3.9,
+     0.35,
+     -3.6
+    ],
+    "max": [
+     0.5,
+     3.45,
+     -3.6
+    ]
+   },
+   {
+    "name": "BWIN_Glass",
+    "min": [
+     -2.25,
+     1.3,
+     -2.345
+    ],
+    "max": [
+     -1.15,
+     2.5,
+     -2.355
+    ]
+   }
+  ],
+  "monitors": [
+   {
+    "name": "PROP_Mon_Chat",
+    "min": [
+     1.9,
+     0.8,
+     2.1157
+    ],
+    "max": [
+     2.85,
+     1.5393,
+     1.8443
+    ]
+   },
+   {
+    "name": "PROP_Mon_Code",
+    "min": [
+     0.69,
+     0.8,
+     2.1544
+    ],
+    "max": [
+     1.89,
+     1.6049,
+     1.8056
+    ]
+   },
+   {
+    "name": "PROP_Mon_Dash",
+    "min": [
+     -0.32,
+     0.8,
+     2.1366
+    ],
+    "max": [
+     0.68,
+     1.4444,
+     1.8234
+    ]
+   },
+   {
+    "name": "PROP_Mon_Paper",
+    "min": [
+     -0.8215,
+     0.8,
+     2.1125
+    ],
+    "max": [
+     -0.33,
+     1.75,
+     1.8475
+    ]
+   }
+  ]
+ },
+ "outlined": [
+  "ART_Frame_0.002",
+  "ART_Frame_0.003",
+  "ART_Frame_0.004",
+  "ART_Frame_0.005",
+  "ART_Frame_0.006",
+  "ART_Frame_0.007",
+  "CHAR_Girl",
+  "PROP_Plant.003",
+  "PROP_Plant.012",
+  "PROP_Plant.013",
+  "RM_Baseboard_Back",
+  "DK_Return",
+  "RM_Baseboard",
+  "DK_Top",
+  "DK_Leg_0",
+  "DK_Leg_1",
+  "DK_Leg_2",
+  "DK_Leg_3",
+  "DK_Leg_R0",
+  "DK_BackPanel",
+  "DK_CableTray",
+  "PC_Body",
+  "WIN_Frame",
+  "ART_Frame_0",
+  "ART_Frame_1",
+  "ART_Frame_2",
+  "ART_Frame_3",
+  "SH_Board_0",
+  "SH_Board_1",
+  "SH_Board_2",
+  "SH_Board_3",
+  "SH_Post_0",
+  "SH_Post_1",
+  "SH_Post_2",
+  "SHF_A_Board",
+  "SHF_B_Board",
+  "SHF_B_Lip",
+  "SHF_C_Board",
+  "SHF_D_Board",
+  "SD_Top",
+  "SD_Panel",
+  "SD_Leg_0",
+  "SD_Leg_1",
+  "SD_Leg_2",
+  "PROP_Chair",
+  "PROP_Mug",
+  "PROP_Figurine",
+  "PROP_Lamp",
+  "PROP_Mouse",
+  "PROP_Deck",
+  "PROP_Mic",
+  "PROP_Keyboard",
+  "PROP_Succulent",
+  "PROP_Cactus",
+  "PROP_PS5",
+  "PROP_MacMini",
+  "PROP_FigCatEar",
+  "PROP_SnakePlant",
+  "PROP_Pothos",
+  "PROP_Books",
+  "PROP_Charger",
+  "PROP_FigMecha",
+  "PROP_Speakers",
+  "PROP_Lamp.001",
+  "RM_Baseboard_Front"
+ ],
+ "emissive": {
+  "art_10": 0.3499999940395355,
+  "art_5": 0.3499999940395355,
+  "art_6": 0.3499999940395355,
+  "art_7": 0.3499999940395355,
+  "art_8": 0.3499999940395355,
+  "art_9": 0.3499999940395355,
+  "art_poster_0": 0.3499999940395355,
+  "art_poster_1": 0.3499999940395355,
+  "art_poster_2": 0.3499999940395355,
+  "art_poster_3": 0.3499999940395355,
+  "blinds_window": 0.2199999988079071,
+  "door_gap_glow": 6.0,
+  "glass_window": 0.18000000715255737,
+  "night_view": 1.7999999523162842,
+  "pc_glow_panel": 3.0,
+  "rgb_glow": 1.7999999523162842,
+  "screen_glow": 0.6600000262260437,
+  "toon_outline_cc": 1.0,
+  "toon_outline_scene": 1.0,
+  "tripo_material_07fc8af4-b2f4-4887-9287-02904d77d94d.001": 2.5999999046325684,
+  "tripo_material_19e9525d-efe6-46fb-afb4-128df1b154a3": 0.44999998807907104,
+  "tripo_material_1e66b939-7d39-4dc9-822d-da304d470229": 1.7999999523162842,
+  "tripo_material_7344612a-397c-48ef-b05f-74d1c755e24d": 1.399999976158142,
+  "tripo_material_7aae478d-8b94-48b9-a556-f9a41a8439d5": 2.0,
+  "tripo_material_bcd87f25-dca8-42c5-bed1-62d5732678fd.001": 2.5999999046325684,
+  "tripo_material_d2d827ee-7ec0-4e47-b795-243010fd34f2": 2.5999999046325684,
+  "whiteboard_surface": 0.05999999865889549
+ },
+ "exposure": -0.8999999761581421,
+ "render": [
+  1536,
+  864
+ ]
+}

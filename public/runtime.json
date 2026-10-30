@@ -1,0 +1,169 @@
+{
+ "defaultCamera": "CAM_Front",
+ "cameras": [
+  {
+   "id": "CAM_Front",
+   "label": "正面 Front",
+   "value": 3
+  },
+  {
+   "id": "SCN_Camera",
+   "label": "书桌 Desk",
+   "value": 0
+  },
+  {
+   "id": "CAM_Bedroom",
+   "label": "卧室 Bedroom",
+   "value": 1
+  },
+  {
+   "id": "CAM_Shelf",
+   "label": "书架 Shelf",
+   "value": 2
+  }
+ ],
+ "extraCameras": {
+  "CAM_Front": {
+   "pos": [
+    0.568,
+    1.081,
+    -1.074
+   ],
+   "yaw": 0.19202,
+   "pitch": -0.09582,
+   "roll": -0.00744,
+   "hfov": 1.64455,
+   "note": "solved from 渲染测试.png"
+  }
+ },
+ "dropLights": [
+  "LGT_Moon",
+  "LGT_Window",
+  "LGT_BedRGB"
+ ],
+ "lampLights": [
+  "LGT_LampBulb",
+  "LGT_ShelfLamp",
+  "LGT_ShelfLamp.001",
+  "LGT_DeskWarm",
+  "LGT_DeskWarm.001"
+ ],
+ "rimObjects": [
+  "CHAR_*",
+  "PROP_Cat*"
+ ],
+ "interact": {
+  "lamp": [
+   "PROP_Lamp"
+  ],
+  "clock": {
+   "object": "PROP_Clock",
+   "moveTo": [
+    1.3,
+    1.55
+   ]
+  },
+  "cat": "PROP_CatSleep2",
+  "window": {
+   "view": "BWIN_NightView",
+   "glass": "BWIN_Glass"
+  },
+  "curtains": {
+   "objects": [
+    "BWIN_CurtainL",
+    "BWIN_CurtainR"
+   ],
+   "overhang": 0.9
+  },
+  "blinds": {
+   "slats": "WIN_Slat_*",
+   "glass": "WIN_Glass"
+  },
+  "monitors": [
+   "PROP_Mon_Chat",
+   "PROP_Mon_Code",
+   "PROP_Mon_Dash",
+   "PROP_Mon_Paper"
+  ],
+  "dashboard": "PROP_Mon_Dash",
+  "guitars": {
+   "PROP_GuitarElec": "electric",
+   "PROP_GuitarAcou": "acoustic"
+  }
+ },
+ "books": {
+  "BOOK_001": "Deep Learning",
+  "BOOK_003": "Dive into Deep Learning",
+  "BOOK_004": "Understanding Deep Learning",
+  "BOOK_005": "Deep Learning: Foundations and Concepts",
+  "BOOK_006": "Pattern Recognition and Machine Learning",
+  "BOOK_007": "Probabilistic Machine Learning",
+  "BOOK_008": "Reinforcement Learning: An Introduction",
+  "BOOK_009": "The Elements of Statistical Learning",
+  "BOOK_010": "深度学习",
+  "BOOK_012": "动手学深度学习",
+  "BOOK_013": "机器学习",
+  "BOOK_014": "统计学习方法",
+  "BOOK_015": "Hands-On Large Language Models",
+  "BOOK_020": "Build a Large Language Model (From Scratch)",
+  "BOOK_021": "大规模语言模型：从理论到实践",
+  "BOOK_022": "Speech and Language Processing",
+  "BOOK_023": "Natural Language Processing with Transformers",
+  "BOOK_024": "LLM Engineer's Handbook",
+  "BOOK_030": "Prompt Engineering for LLMs",
+  "BOOK_031": "Generative Deep Learning",
+  "BOOK_032": "Real-Time Rendering 4th Ed.",
+  "BOOK_034": "Physically Based Rendering 4th Ed.",
+  "BOOK_035": "Fundamentals of Computer Graphics",
+  "BOOK_036": "GPU Gems",
+  "BOOK_037": "Programming Massively Parallel Processors",
+  "BOOK_038": "Professional CUDA C Programming",
+  "BOOK_039": "CUDA by Example",
+  "BOOK_040": "Ray Tracing Gems",
+  "BOOK_041": "Computer Graphics: Principles and Practice",
+  "BOOK_042": "OpenGL Programming Guide",
+  "BOOK_044": "Game Engine Architecture",
+  "BOOK_045": "CUDA Programming",
+  "BOOK_046": "GPU Pro 7",
+  "BOOK_047": "Designing Machine Learning Systems",
+  "BOOK_052": "AI Engineering",
+  "BOOK_053": "机器学习系统：设计和实现",
+  "BOOK_054": "Site Reliability Engineering",
+  "BOOK_055": "Kubernetes in Action",
+  "BOOK_061": "Systems Performance",
+  "BOOK_062": "Computer Systems: A Programmer's Perspective",
+  "BOOK_063": "Designing Data-Intensive Applications",
+  "BOOK_067": "Database Internals",
+  "BOOK_068": "Streaming Systems",
+  "BOOK_069": "Computer Architecture: A Quantitative Approach",
+  "BOOK_070": "Spark: The Definitive Guide",
+  "BOOK_071": "Hadoop: The Definitive Guide",
+  "BOOK_076": "Operating Systems: Three Easy Pieces",
+  "BOOK_077": "Readings in Database Systems",
+  "BOOK_078": "Introduction to Algorithms 4th Ed.",
+  "BOOK_082": "Algorithms 4th Ed.",
+  "BOOK_083": "The Algorithm Design Manual",
+  "BOOK_084": "The Art of Multiprocessor Programming",
+  "BOOK_085": "Algorithms",
+  "BOOK_086": "Algorithm Design",
+  "BOOK_091": "Data Structures and Algorithm Analysis in C++",
+  "BOOK_092": "算法导论"
+ },
+ "boxUV": {
+  "tex_floor_wood": {
+   "tile": 1.6,
+   "grain": "z"
+  },
+  "tex_desk_wood": {
+   "tile": 1,
+   "grain": "long"
+  },
+  "tex_pc_metal": {
+   "tile": 0.12,
+   "grain": "long"
+  }
+ },
+ "panelUV": [
+  "pc_glow_panel"
+ ]
+}

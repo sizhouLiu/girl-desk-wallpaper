@@ -1,0 +1,29 @@
+{
+ "defaultCamera": "CAM_Cafe",
+ "cameras": [
+  {
+   "id": "CAM_Cafe",
+   "label": "俯视 Top",
+   "value": 0
+  }
+ ],
+ "cameraFit": "cover",
+ "lighting": {
+  "ambient": "world",
+  "background": "world",
+  "exposure": 0.625,
+  "bloomThreshold": 4,
+  "shadowMapSize": 4096
+ },
+ "rimObjects": [
+  "3D：少女*",
+  "3D：睡猫"
+ ],
+ "interact": {
+  "cat": "3D：睡猫"
+ },
+ "labels": {
+  "cat": "睡觉的猫 · 点一下"
+ },
+ "books": {}
+}

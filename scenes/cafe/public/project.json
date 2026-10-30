@@ -1,0 +1,149 @@
+{
+  "title": "Mellow Beans · Café",
+  "description": "Sunny street café, seen from above. Click the sleeping cat to hear it purr or meow.",
+  "file": "index.html",
+  "type": "web",
+  "preview": "preview.jpg",
+  "tags": [
+    "Anime",
+    "Relaxing"
+  ],
+  "contentrating": "Everyone",
+  "visibility": "private",
+  "general": {
+    "supportsaudioprocessing": false,
+    "properties": {
+      "camera": {
+        "order": 1,
+        "text": "镜头 / Camera",
+        "type": "combo",
+        "value": 0,
+        "options": [
+          {
+            "label": "俯视 Top",
+            "value": 0
+          }
+        ]
+      },
+      "fps": {
+        "order": 2,
+        "text": "帧率上限 / FPS limit",
+        "type": "combo",
+        "value": 30,
+        "options": [
+          {
+            "label": "24",
+            "value": 24
+          },
+          {
+            "label": "30",
+            "value": 30
+          },
+          {
+            "label": "60",
+            "value": 60
+          }
+        ]
+      },
+      "resolution": {
+        "order": 3,
+        "text": "渲染分辨率 % / Render scale %",
+        "type": "slider",
+        "value": 100,
+        "min": 50,
+        "max": 100,
+        "step": 5
+      },
+      "adaptive": {
+        "order": 4,
+        "text": "掉帧时自动降分辨率 / Adaptive resolution",
+        "type": "bool",
+        "value": true
+      },
+      "lights": {
+        "order": 5,
+        "text": "灯光强度 % / Light strength %",
+        "type": "slider",
+        "value": 35,
+        "min": 10,
+        "max": 100,
+        "step": 5
+      },
+      "exposure": {
+        "order": 6,
+        "text": "曝光 % / Exposure %",
+        "type": "slider",
+        "value": 85,
+        "min": 40,
+        "max": 160,
+        "step": 5
+      },
+      "bloom": {
+        "order": 7,
+        "text": "泛光 % / Bloom %",
+        "type": "slider",
+        "value": 30,
+        "min": 0,
+        "max": 100,
+        "step": 5
+      },
+      "outline": {
+        "order": 8,
+        "text": "描边粗细 (x0.1 px) / Outline width",
+        "type": "slider",
+        "value": 10,
+        "min": 0,
+        "max": 30,
+        "step": 1
+      },
+      "parallax": {
+        "order": 9,
+        "text": "鼠标视差 % / Mouse parallax %",
+        "type": "slider",
+        "value": 100,
+        "min": 0,
+        "max": 200,
+        "step": 10
+      },
+      "realtimedaynight": {
+        "order": 10,
+        "text": "按真实时间切换昼夜 / Day-night from clock",
+        "type": "bool",
+        "value": false
+      },
+      "anime": {
+        "order": 13,
+        "text": "三渲二强度 % / Anime look %",
+        "type": "slider",
+        "value": 100,
+        "min": 0,
+        "max": 100,
+        "step": 5
+      },
+      "inklines": {
+        "order": 14,
+        "text": "勾线粗细 (x0.1 px) / Ink line width",
+        "type": "slider",
+        "value": 15,
+        "min": 0,
+        "max": 30,
+        "step": 1
+      },
+      "volume": {
+        "order": 12,
+        "text": "音效音量 % / Sound volume %",
+        "type": "slider",
+        "value": 60,
+        "min": 0,
+        "max": 100,
+        "step": 5
+      },
+      "showstats": {
+        "order": 11,
+        "text": "显示帧率 / Show FPS",
+        "type": "bool",
+        "value": false
+      }
+    }
+  }
+}

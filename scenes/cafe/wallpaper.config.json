@@ -1,0 +1,57 @@
+{
+  "name": "cafe-mellow-beans",
+  "title": "Mellow Beans · Café",
+  "description": "Sunny street café, seen from above. Click the sleeping cat to hear it purr or meow.",
+  "blend": "C:/Users/asus/Documents/cafe_scene/cafe.blend",
+  "blender": "F:/blender5.2/blender.exe",
+  "preview": "scenes/cafe/preview.jpg",
+  "paths": {
+    "root": "scenes/cafe"
+  },
+  "export": {
+    "scene": "Cafe",
+    "boxUV": {
+      "M_Cobble": {
+        "tile": 1.6129032258064517
+      },
+      "M_Road": {
+        "tile": 2.2222222222222223
+      },
+      "M_Wall": {
+        "tile": 2.380952380952381
+      }
+    },
+    "textureMax": {
+      "default": 1024
+    }
+  },
+  "runtime": {
+    "defaultCamera": "CAM_Cafe",
+    "cameras": [
+      {
+        "id": "CAM_Cafe",
+        "label": "俯视 Top",
+        "value": 0
+      }
+    ],
+    "cameraFit": "cover",
+    "lighting": {
+      "ambient": "world",
+      "background": "world",
+      "exposure": 0.625,
+      "bloomThreshold": 4,
+      "shadowMapSize": 4096
+    },
+    "rimObjects": [
+      "3D：少女*",
+      "3D：睡猫"
+    ],
+    "interact": {
+      "cat": "3D：睡猫"
+    },
+    "labels": {
+      "cat": "睡觉的猫 · 点一下"
+    },
+    "books": {}
+  }
+}

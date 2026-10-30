@@ -1,0 +1,28 @@
+{
+ "defaultCamera": "CAM_Bridge",
+ "cameras": [
+  {
+   "id": "CAM_Bridge",
+   "label": "雪桥 Bridge",
+   "value": 0
+  }
+ ],
+ "cameraFit": "cover",
+ "lighting": {
+  "ambient": "world",
+  "background": "world",
+  "exposure": 0.7,
+  "bloomThreshold": 6,
+  "shadowMapSize": 4096,
+  "fog": [
+   24,
+   60
+  ],
+  "ambientScale": 1.6,
+  "sunScale": 1.6,
+  "envIntensity": 0.5
+ },
+ "interact": {},
+ "books": {},
+ "style": "realistic"
+}

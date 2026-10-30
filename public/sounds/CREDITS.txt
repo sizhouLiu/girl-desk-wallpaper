@@ -1,0 +1,12 @@
+Cat meow recordings, all CC0 1.0 (public domain dedication), from Wikimedia Commons:
+
+meow_1.ogg  "Maullido de gata hembra joven.ogg"           by George Miquilena
+            https://commons.wikimedia.org/wiki/File:Maullido_de_gata_hembra_joven.ogg
+meow_2.wav  "Meow of a Siamese cat - freemaster2.wav"     by freemaster2
+            https://commons.wikimedia.org/wiki/File:Meow_of_a_Siamese_cat_-_freemaster2.wav
+meow_3.wav  "MeowUSA.wav"                                 by SalomeCzapiewski
+            https://commons.wikimedia.org/wiki/File:MeowUSA.wav
+meow_4.ogg  "Kcg-nyan (scar).ogg"                         by Danjuma Anthony
+            https://commons.wikimedia.org/wiki/File:Kcg-nyan_(scar).ogg
+
+Purr and guitar sounds are synthesised in code (src/sound.js).

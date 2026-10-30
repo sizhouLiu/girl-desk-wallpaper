@@ -1,0 +1,15 @@
+node_modules/
+dist/
+wallpaper/
+release/
+export/
+work/
+backups/
+__pycache__/
+*.log
+scenes/*/dist/
+scenes/*/wallpaper/
+scenes/*/release/
+scenes/*/export/
+scenes/*/work/
+scenes/*/pipeline_run.txt

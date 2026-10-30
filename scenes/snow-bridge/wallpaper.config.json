@@ -1,0 +1,49 @@
+{
+  "name": "snow-bridge-dragon",
+  "title": "Snow Bridge · Ice Dragon",
+  "description": "雪桥上的女剑客与冰龙，远处是覆雪的重檐楼阁。",
+  "blend": "C:/Users/asus/Documents/snow_bridge_scene/snow_bridge.blend",
+  "blender": "F:/blender5.2/blender.exe",
+  "preview": "scenes/snow-bridge/preview.jpg",
+  "paths": {
+    "root": "scenes/snow-bridge"
+  },
+  "export": {
+    "scene": "SnowBridge",
+    "exclude": [
+      "FX_Fog"
+    ],
+    "textureMax": {
+      "default": 1024
+    },
+    "keepPBR": true
+  },
+  "runtime": {
+    "defaultCamera": "CAM_Bridge",
+    "cameras": [
+      {
+        "id": "CAM_Bridge",
+        "label": "雪桥 Bridge",
+        "value": 0
+      }
+    ],
+    "cameraFit": "cover",
+    "lighting": {
+      "ambient": "world",
+      "background": "world",
+      "exposure": 0.7,
+      "bloomThreshold": 6,
+      "shadowMapSize": 4096,
+      "fog": [
+        24,
+        60
+      ],
+      "ambientScale": 1.6,
+      "sunScale": 1.6,
+      "envIntensity": 0.5
+    },
+    "interact": {},
+    "books": {},
+    "style": "realistic"
+  }
+}
