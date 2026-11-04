@@ -5,7 +5,7 @@ import { BOOK_LINKS } from './bookLinks.js';
 import { purr, meow, strum } from './sound.js';
 import { createDashboard } from './dashboard.js';
 
-export function setupInteractions({ THREE, scene, room, camera, renderer, meta, lightsByName, runtime }) {
+export function setupInteractions({ THREE, scene, room, camera, renderer, meta, lightsByName, runtime, dragon }) {
   const RT = runtime || {}, IC = RT.interact || {};
   const tooltip = document.getElementById('tooltip');
   const ray = new THREE.Raycaster();
@@ -46,6 +46,8 @@ export function setupInteractions({ THREE, scene, room, camera, renderer, meta, 
   const guitars = Object.entries(IC.guitars || {}).flatMap(([n, type]) =>
     meshesOf(byName(n)).map((m) => (m.userData.kind = type === 'electric' ? 'guitarE' : 'guitarA', m)));
   const pickables = [...Object.values(groups).flat(), ...bookMeshes, ...curtains.flatMap(meshesOf), ...blindMeshes, ...guitars];
+  // dragon.js provides its own invisible pick spheres on the neck / head bones
+  if (dragon) for (const m of dragon.pickables) { m.userData.kind = 'dragon'; pickables.push(m); }
 
   // ---- blinds: tilt every slat about its long axis; closed = slats stand flat against the window ----
   const slatAxis = new THREE.Vector3(0, 0, 1);   // slats run along world Z on the left wall
@@ -317,6 +319,7 @@ export function setupInteractions({ THREE, scene, room, camera, renderer, meta, 
     else if (k === 'curtain') curtainTarget = curtainTarget > 0.5 ? 0 : 1;
     else if (k === 'blinds') blindTarget = blindTarget > 0.5 ? 0 : 1;
     else if (k === 'book') window.open(bookUrl(o.userData.title), '_blank');
+    else if (k === 'dragon') dragon.onClick();
   });
 
   let hoverT = 0, hover = null;

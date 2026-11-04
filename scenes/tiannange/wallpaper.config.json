@@ -1,0 +1,349 @@
+{
+  "name": "tiannange-snow",
+  "title": "天南阁 · TianNanGe",
+  "description": "复刻 WLOP《天南阁》：雪桥上的女剑客与盘绕的龙，人物衣裙随风摆动，龙在呼吸。",
+  "blend": "C:/Users/asus/Documents/tiannange_scene/tiannange.blend",
+  "blender": "F:/blender5.2/blender.exe",
+  "preview": "scenes/tiannange/preview.jpg",
+  "paths": {
+    "root": "scenes/tiannange"
+  },
+  "export": {
+    "scene": "Scene",
+    "keepPBR": true,
+    "animations": true,
+    "textureMax": {
+      "default": 1024
+    }
+  },
+  "runtime": {
+    "style": "realistic",
+    "far": 400,
+    "defaultCamera": "CAM_TianNanGe",
+    "cameras": [
+      {
+        "id": "CAM_TianNanGe",
+        "label": "天南阁 Main",
+        "value": 0
+      }
+    ],
+    "cameraFit": "cover",
+    "lighting": {
+      "ambient": "world",
+      "background": "world",
+      "exposure": 0.5,
+      "envIntensity": 0.3,
+      "bloomThreshold": 5,
+      "shadowMapSize": 4096,
+      "heightFog": {
+        "density": 0.018,
+        "falloff": 0.12,
+        "height": -2.5,
+        "start": 12,
+        "maxOpacity": 0.75,
+        "color": [
+          0.38,
+          0.52,
+          0.7
+        ]
+      },
+      "grade": {
+        "tint": [
+          0.78,
+          0.9,
+          1.15
+        ],
+        "shadowTint": [
+          0.45,
+          0.66,
+          1.05
+        ],
+        "saturation": 1.25
+      },
+      "backlight": {
+        "dir": [
+          0.695,
+          0.53,
+          0.486
+        ],
+        "color": [
+          1,
+          0.93,
+          0.8
+        ],
+        "haze": 1.6,
+        "hazeExp": 5,
+        "glow": 2.2,
+        "glowExp": 7,
+        "rim": 6,
+        "rimPower": 4,
+        "exclude": [
+          "dcc8f7b0"
+        ]
+      },
+      "shadowRadius": 14,
+      "gtao": {
+        "intensity": 1,
+        "radius": 0.4,
+        "falloff": 2,
+        "thickness": 2,
+        "scale": 1
+      },
+      "ambientScale": 1,
+      "groundColor": [
+        0.62,
+        0.68,
+        0.78
+      ],
+      "sunScale": 2,
+      "envFromScene": {
+        "pos": [
+          -1,
+          1.2,
+          0.3
+        ],
+        "size": 256
+      },
+      "shadowLights": [
+        "LGT_BackRim",
+        "DirectionalLight"
+      ]
+    },
+    "interact": {},
+    "books": {},
+    "snow": {
+      "count": 9000,
+      "area": [
+        26,
+        12,
+        30
+      ],
+      "fall": 1,
+      "wind": [
+        0.8,
+        0
+      ],
+      "size": 0.13,
+      "opacity": 0.9
+    },
+    "cloudSea": {
+      "sea": -1.245,
+      "wave": 0.592,
+      "wavePeriod": 32.95,
+      "billowPeriod": 10.22,
+      "billowStrength": 0.942,
+      "soft": 1.5,
+      "erosion": 0.504,
+      "detailPeriod": 1.136,
+      "extinction": 13.08,
+      "boost": 8,
+      "edgeFade": 1,
+      "clearStrength": 0.87,
+      "clearWidth": 0.465,
+      "wind": [
+        -0.378,
+        0.128
+      ],
+      "boxMin": [
+        -22,
+        -11.5,
+        -42
+      ],
+      "boxMax": [
+        58,
+        3.5,
+        42
+      ],
+      "albedo": [
+        0.6,
+        0.68,
+        0.78
+      ],
+      "lit": [
+        1.15,
+        1.3,
+        1.5
+      ],
+      "shade": [
+        0.42,
+        0.55,
+        0.75
+      ],
+      "shadowK": 0.5,
+      "maxDist": 160,
+      "steps": 40
+    },
+    "dragon": {
+      "headBone": "DR_head",
+      "chain": [
+        "DR_neck_01_seg_03",
+        "DR_neck_02",
+        "DR_neck_02_seg_02",
+        "DR_neck_02_seg_03",
+        "DR_head"
+      ],
+      "pick": [
+        [
+          "DR_head",
+          1.2
+        ],
+        [
+          "DR_neck_02_seg_03",
+          0.95
+        ],
+        [
+          "DR_neck_02_seg_02",
+          0.95
+        ],
+        [
+          "DR_neck_02",
+          0.95
+        ],
+        [
+          "DR_neck_01_seg_03",
+          1
+        ]
+      ],
+      "eyeLights": [
+        "Dragon_EyeGold_L",
+        "Dragon_EyeGold_R"
+      ],
+      "breathLoop": 4.04,
+      "points": {
+        "tip": [
+          -1.456,
+          0.418,
+          -3.155
+        ],
+        "mouth": [
+          -1.061,
+          0.119,
+          -3.042
+        ],
+        "nostrilL": [
+          -1.11,
+          0.847,
+          -2.788
+        ],
+        "nostrilR": [
+          -1.016,
+          0.861,
+          -3.141
+        ],
+        "eyeL": [
+          -0.47,
+          1.324,
+          -1.847
+        ],
+        "eyeR": [
+          -0.105,
+          1.616,
+          -2.658
+        ]
+      },
+      "breathReach": 0.5,
+      "rear": 0.35,
+      "lunge": -0.15,
+      "turn": 0.5
+    },
+    "sway": {
+      "left": "CH_LeftArm1",
+      "right": "CH_RightArm1",
+      "bones": [
+        {
+          "bone": "CH_Spine11",
+          "axis": "side",
+          "deg": 0.8,
+          "period": 4.04,
+          "phase": 0
+        },
+        {
+          "bone": "CH_Spine21",
+          "axis": "side",
+          "deg": 1.4,
+          "period": 4.04,
+          "phase": 0.03
+        },
+        {
+          "bone": "CH_Neck1",
+          "axis": "side",
+          "deg": -0.9,
+          "period": 4.04,
+          "phase": 0.05
+        },
+        {
+          "bone": "CH_LeftShoulder1",
+          "axis": "fwd",
+          "deg": 2.2,
+          "period": 4.04,
+          "phase": 0.05
+        },
+        {
+          "bone": "CH_RightShoulder1",
+          "axis": "fwd",
+          "deg": 2.2,
+          "period": 4.04,
+          "phase": 0.05
+        },
+        {
+          "bone": "CH_LeftArm1",
+          "axis": "side",
+          "deg": 2.4,
+          "period": 16.16,
+          "phase": 0
+        },
+        {
+          "bone": "CH_RightArm1",
+          "axis": "side",
+          "deg": 1.76,
+          "period": 16.16,
+          "phase": 0.35
+        },
+        {
+          "bone": "CH_LeftArm1",
+          "axis": "fwd",
+          "deg": 0.96,
+          "period": 8.08,
+          "phase": 0.1
+        },
+        {
+          "bone": "CH_RightArm1",
+          "axis": "fwd",
+          "deg": 0.96,
+          "period": 8.08,
+          "phase": 0.1
+        },
+        {
+          "bone": "CH_LeftForeArm1",
+          "axis": "side",
+          "deg": 2,
+          "period": 16.16,
+          "phase": 0.12
+        },
+        {
+          "bone": "CH_RightForeArm1",
+          "axis": "side",
+          "deg": 1.44,
+          "period": 16.16,
+          "phase": 0.47
+        }
+      ],
+      "hair": {
+        "bones": [
+          "CH_Hair_L",
+          "CH_Hair_R",
+          "CH_Hair_B"
+        ],
+        "wind": [
+          0.179,
+          0,
+          0.984
+        ],
+        "lean": 12,
+        "gust": 13,
+        "flutter": 2.5
+      }
+    },
+    "msaa": 4
+  }
+}

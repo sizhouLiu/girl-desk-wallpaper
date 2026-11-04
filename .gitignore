@@ -13,3 +13,6 @@ scenes/*/release/
 scenes/*/export/
 scenes/*/work/
 scenes/*/pipeline_run.txt
+
+# 天南阁模型含 UE 商城素材导出的网格和贴图，暂不公开分发
+scenes/tiannange/public/room.glb

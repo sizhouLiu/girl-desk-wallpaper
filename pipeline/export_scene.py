@@ -383,10 +383,16 @@ log("scene.json: cams", list(cams), "lights", len(lights), "books", len(books), 
 bpy.ops.object.select_all(action="DESELECT")
 for o in objs:
     o.select_set(True)
+# export.animations: also select the armatures driving exported meshes and write their actions
+ANIM = bool(EX.get("animations"))
+if ANIM:
+    for o in objs:
+        for m in o.modifiers:
+            if m.type == "ARMATURE" and m.object: m.object.select_set(True)
 glb = os.path.join(OUT, "room.glb")
 bpy.ops.export_scene.gltf(
     filepath=glb, export_format="GLB", use_selection=True, export_apply=True, export_yup=True,
-    export_cameras=False, export_lights=False, export_extras=False, export_animations=False,
+    export_cameras=False, export_lights=False, export_extras=False, export_animations=ANIM,
     export_texcoords=True, export_normals=True, export_materials="EXPORT", export_image_format="AUTO",
 )
 log("GLB %.0f MB" % (os.path.getsize(glb) / 1e6), "in %.0fs total" % (time.time() - t0))

@@ -8,6 +8,10 @@ import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { makeGradientMap, toonMaterial, outlineMaterial, bakeOutlineColors, animeU } from './toon.js';
 import { AnimePass } from './anime.js';
+import { FogPass } from './fog.js';
+import { GTAOPass } from 'three/examples/jsm/postprocessing/GTAOPass.js';
+import { setupDragon } from './dragon.js';
+import { setupSway } from './sway.js';
 import { setupInteractions } from './interact.js';
 import { settings, onSettings, setCameraOptions, userSet } from './settings.js';
 
@@ -38,11 +42,13 @@ if (RL.background === 'world' && meta.world) scene.background = new THREE.Color(
 else if (typeof RL.background === 'string') scene.background = new THREE.Color(RL.background);
 // runtime.style "realistic": keep the GLB's PBR materials, no toon shading / outlines / ink-line pass
 const REAL = runtime.style === 'realistic';
+// runtime.far: camera far clip in metres for large outdoor scenes (default 60)
+if (runtime.far) { camera.far = runtime.far; camera.updateProjectionMatrix(); }
 // runtime.lighting.fog: [near, far] linear fog in the background colour (stands in for Blender volumetrics)
 if (RL.fog) scene.fog = new THREE.Fog(scene.background.clone(), RL.fog[0], RL.fog[1]);
 // realistic scenes get image-based lighting so PBR materials have soft reflections (envIntensity scales it)
 if (REAL) {
-  scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
+  if (!RL.envFromScene) scene.environment = new THREE.PMREMGenerator(renderer).fromScene(new RoomEnvironment(), 0.04).texture;
   scene.environmentIntensity = RL.envIntensity ?? 0.6;
 }
 // "cover" (default): keep the Blender camera's horizontal FOV. "contain": keep the whole Blender frame visible,
@@ -138,6 +144,89 @@ const gltf = await new Promise((res, rej) => loader.load('room.glb', res, (e) =>
 }, rej));
 const room = gltf.scene;
 scene.add(room);
+// skeletal clips exported with export.animations (e.g. breathing / wind loops) play forever
+// UE / Blender loops often end with a copy of the first pose and start at one frame in; played as-is that is a
+// short freeze at every loop seam. Shift each clip to start at 0 and drop trailing keys that barely move.
+function seamlessLoop(clip) {
+  const t0 = Math.min(...clip.tracks.map((t) => t.times[0]));
+  // GLTFLoader shares one times array between tracks that use the same accessor: shift each array once
+  const seen = new Set();
+  for (const t of clip.tracks) { if (seen.has(t.times)) continue; seen.add(t.times); for (let i = 0; i < t.times.length; i++) t.times[i] -= t0; }
+  const full = clip.tracks.filter((t) => t.ValueTypeName === 'quaternion' && t.times.length > 2);
+  if (!full.length) { clip.resetDuration(); return clip; }
+  const n = full[0].times.length;
+  const step = (a, b) => full.reduce((s, t) => {
+    const v = t.values; let d = 0;
+    for (let j = 0; j < 4; j++) d += v[a * 4 + j] * v[b * 4 + j];
+    return s + 2 * Math.acos(Math.min(1, Math.abs(d)));
+  }, 0);
+  const steps = []; for (let f = 0; f < n - 1; f++) steps.push(step(f, f + 1));
+  const median = [...steps].sort((x, y) => x - y)[steps.length >> 1];
+  let last = n - 1;
+  while (last > n - 4 && steps[last - 1] < median * 0.25) last--;
+  if (last < n - 1) for (const t of full) { t.times = t.times.slice(0, last + 1); t.values = t.values.slice(0, (last + 1) * 4); }
+  // crossfade the seam: the clip's end and start move at different speeds, which reads as a hitch every loop.
+  // Keep keys 0..m-W-1 and blend the first W keys from the tail (keys m-W..m-1) into the head with a smoothstep,
+  // so the new loop of m-W keys is continuous in pose and speed at both blend edges.
+  const m = last + 1, dt = full[0].times[1] - full[0].times[0];
+  const W = Math.min(Math.round((runtime.loopBlend ?? 1.0) / dt), Math.floor(m / 3));
+  if (W >= 2) {
+    const qa = new THREE.Quaternion(), qb = new THREE.Quaternion();
+    const len = m - W;
+    for (const t of clip.tracks) {
+      if (t.times.length < m) continue;
+      const size = t.getValueSize(), v = t.values, out = v.slice(0, len * size);
+      for (let i = 0; i < W; i++) {
+        const x = i / W, k = x * x * (3 - 2 * x);   // weight of the original head pose
+        const a = (len + i) * size, b = i * size;
+        if (size === 4) { qa.fromArray(v, a); qb.fromArray(v, b); qa.slerp(qb, k).toArray(out, b); }
+        else for (let j = 0; j < size; j++) out[b + j] = v[a + j] + (v[b + j] - v[a + j]) * k;
+      }
+      t.times = t.times.slice(0, len); t.values = out;
+    }
+    clip.duration = len * dt;
+  } else clip.duration = full[0].times[last];
+  return clip;
+}
+const mixer = gltf.animations.length ? new THREE.AnimationMixer(room) : null;
+if (mixer) for (const clip of gltf.animations) mixer.clipAction(seamlessLoop(clip)).play();
+// runtime.snow: { count, area: [w, h, d] metres around the camera, fall (m/s), wind: [x, z] m/s, size }
+// falling flakes wrap inside a box that follows the camera, so the layer costs one draw call
+let snow = null;
+if (runtime.snow) {
+  const S = runtime.snow, n = S.count || 4000, [aw, ah, ad] = S.area || [30, 14, 40];
+  const pos = new Float32Array(n * 3), seed = new Float32Array(n);
+  for (let i = 0; i < n; i++) {
+    pos[i * 3] = (Math.random() - 0.5) * aw; pos[i * 3 + 1] = Math.random() * ah; pos[i * 3 + 2] = -Math.random() * ad;
+    seed[i] = Math.random();
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  const c = document.createElement('canvas'); c.width = c.height = 64;
+  const x = c.getContext('2d'), gr = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+  gr.addColorStop(0, 'rgba(255,255,255,1)'); gr.addColorStop(0.4, 'rgba(255,255,255,0.6)'); gr.addColorStop(1, 'rgba(255,255,255,0)');
+  x.fillStyle = gr; x.fillRect(0, 0, 64, 64);
+  const m = new THREE.PointsMaterial({ size: S.size || 0.05, map: new THREE.CanvasTexture(c), transparent: true, depthWrite: false, fog: true, opacity: S.opacity ?? 0.9 });
+  snow = new THREE.Points(g, m); snow.frustumCulled = false; snow.renderOrder = 2;
+  snow.userData = { seed, aw, ah, ad, fall: S.fall || 0.8, wind: S.wind || [0.6, 0] };
+  scene.add(snow);
+}
+function updateSnow(dt, t) {
+  if (!snow) return;
+  const { seed, aw, ah, ad, fall, wind } = snow.userData, a = snow.geometry.attributes.position, p = a.array;
+  for (let i = 0; i < seed.length; i++) {
+    const k = i * 3, s = seed[i];
+    p[k] += (wind[0] + Math.sin(t * (0.6 + s) + s * 40) * 0.25) * dt;
+    p[k + 1] -= fall * (0.6 + s * 0.8) * dt;
+    p[k + 2] += wind[1] * dt;
+    if (p[k + 1] < 0) p[k + 1] += ah;
+    if (p[k] > aw / 2) p[k] -= aw; else if (p[k] < -aw / 2) p[k] += aw;
+  }
+  a.needsUpdate = true;
+  // the box sits in front of the camera, aligned to it, starting a little below eye level
+  snow.position.copy(camera.position); snow.quaternion.copy(camera.quaternion);
+  snow.translateY(-ah * 0.45);
+}
 
 // ---------------- re-UV boxes whose Blender texture mapping didn't survive export ----------------
 // These objects are plain boxes that Blender textured with procedural (object / generated) coordinates; the GLB
@@ -237,19 +326,50 @@ room.traverse((o) => {
   }
 });
 
+// ---------------- backlight rim (runtime.lighting.backlight.rim, realistic scenes) ----------------
+// adds emissive light on edges whose normal faces the light source, strongest at grazing view angles
+const rimBL = RL.backlight && RL.backlight.rim ? RL.backlight : null;
+const rimU = rimBL ? { uRimDir: { value: new THREE.Vector3() }, uRimCol: { value: new THREE.Color(...(rimBL.color || [1, 0.95, 0.85])).multiplyScalar(rimBL.rim) }, uRimPow: { value: rimBL.rimPower ?? 3 } } : null;
+const rimWorld = rimBL ? new THREE.Vector3(...rimBL.dir).normalize() : null;
+if (rimU) {
+  const patched = new Set();
+  room.traverse((o) => {
+    if (!o.isMesh) return;
+    for (const m of Array.isArray(o.material) ? o.material : [o.material]) {
+      if (!m || !m.isMeshStandardMaterial || patched.has(m)) continue;
+      // thin strands (hair) have noisy normals: the rim term turns their edges into white speckles
+      if ((rimBL.exclude || []).some((x) => (m.name || '').includes(x))) continue;
+      patched.add(m);
+      m.onBeforeCompile = (sh) => {
+        Object.assign(sh.uniforms, rimU);
+        sh.fragmentShader = 'uniform vec3 uRimDir, uRimCol; uniform float uRimPow;\n' + sh.fragmentShader.replace('#include <emissivemap_fragment>',
+          `#include <emissivemap_fragment>
+  { float facing = clamp(dot(normal, uRimDir), 0.0, 1.0);
+    float edge = pow(1.0 - clamp(dot(normal, normalize(vViewPosition)), 0.0, 1.0), uRimPow);
+    totalEmissiveRadiance += uRimCol * facing * edge * (0.35 + 0.65 * diffuseColor.rgb); }`);
+      };
+      m.customProgramCacheKey = () => 'rimBL';
+      m.needsUpdate = true;
+    }
+  });
+}
+
 // ---------------- sun shadows (only scenes with a SUN light) ----------------
 // Static scene: the shadow map is rendered once (autoUpdate off), so dappled leaf shadows cost nothing per frame.
 // meta.shadowOnly = Blender objects hidden from camera rays but casting shadows (e.g. a leaf canopy above the
 // camera), meta.noShadow = visible but not casting (e.g. a foreground branch card).
 const suns = Object.values(lightsByName).filter((l) => l.isDirectionalLight);
+// runtime.lighting.shadowRadius: limit the shadow frustum to this many metres around the camera (instead of the whole scene bbox)
+const shadowR = RL.shadowRadius && RL.shadows !== false ? RL.shadowRadius : 0;
 if (suns.length && RL.shadows !== false) {
   const norm = (n) => (n || '').replace(/\./g, '');
   const shadowOnly = new Set((meta.shadowOnly || []).map(norm)), noShadow = new Set((meta.noShadow || []).map(norm));
   const under = (set, o) => { for (let p = o; p; p = p.parent) if (set.has(p.name)) return true; return false; };
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  renderer.shadowMap.autoUpdate = false;
-  renderer.shadowMap.needsUpdate = true;
+  const staticShadow = !mixer;
+  renderer.shadowMap.autoUpdate = !staticShadow;
+  if (staticShadow) renderer.shadowMap.needsUpdate = true;
   room.traverse((o) => {
     if (!o.isMesh || o.name.endsWith('__outline')) return;
     const so = under(shadowOnly, o);
@@ -264,25 +384,47 @@ if (suns.length && RL.shadows !== false) {
   });
   const box = new THREE.Box3().setFromObject(room);
   const center = box.getCenter(new THREE.Vector3()), r = box.getSize(new THREE.Vector3()).length() / 2;
+  // with shadowRadius the frustum sits in front of the base camera, fixed (parallax would make shadow edges swim)
+  const sc0 = shadowR ? new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion).multiplyScalar(shadowR * 0.6).add(camera.position) : center;
   for (const sun of suns) {
     const d = sun.userData.dir.clone().normalize();
-    sun.target.position.copy(center);
-    sun.position.copy(center).addScaledVector(d, -r * 1.5);
+    sun.target.position.copy(sc0);
+    sun.position.copy(sc0).addScaledVector(d, -(shadowR || r) * 1.5);
     scene.add(sun.target);
     if (Math.abs(d.y) > 0.99) sun.shadow.camera.up.set(0, 0, 1);
     const sh = sun.shadow, size = RL.shadowMapSize || 4096;
     sh.mapSize.set(size, size);
-    Object.assign(sh.camera, { left: -r, right: r, top: r, bottom: -r, near: 0.05, far: r * 3 });
+    const sr = shadowR || r;
+    Object.assign(sh.camera, { left: -sr, right: sr, top: sr, bottom: -sr, near: 0.05, far: sr * 3 });
     sh.camera.updateProjectionMatrix();
     sh.bias = -0.0004;
     sh.normalBias = 0.02;
-    sun.castShadow = true;
+    // runtime.lighting.shadowLights: only these suns render a shadow map (each one is another scene pass per frame)
+    sun.castShadow = !RL.shadowLights || RL.shadowLights.includes(sun.name);
   }
+}
+
+// ---------------- scene-captured environment (runtime.lighting.envFromScene) ----------------
+// Capture the lit scene into a cubemap once and use it as image-based light: bright snow bounce from below, sky from
+// above, the dragon's colour from the side. A one-bounce stand-in for global illumination (WebGL has no real-time GI).
+if (REAL && RL.envFromScene) {
+  const E = RL.envFromScene;
+  const cubeRT = new THREE.WebGLCubeRenderTarget(E.size || 256, { type: THREE.HalfFloatType });
+  const cubeCam = new THREE.CubeCamera(0.1, camera.far, cubeRT);
+  cubeCam.position.fromArray(E.pos || [0, 1.2, 0]);
+  if (mixer) mixer.update(0);
+  if (snow) snow.visible = false;
+  cubeCam.update(renderer, scene);
+  if (snow) snow.visible = true;
+  const pm = new THREE.PMREMGenerator(renderer);
+  scene.environment = pm.fromCubemap(cubeRT.texture).texture;
+  pm.dispose(); cubeRT.dispose();
 }
 
 // ---------------- post: selective-ish bloom (threshold keeps it on screens / lamps) ----------------
 // both ping-pong targets carry a depth texture, so the anime pass can read depth from whichever one was drawn into
-const rt = new THREE.WebGLRenderTarget(1920, 1080, { type: THREE.HalfFloatType });
+// runtime.msaa: multisampled scene target (thin strands like hair shimmer against a bright sky without it)
+const rt = new THREE.WebGLRenderTarget(1920, 1080, { type: THREE.HalfFloatType, samples: runtime.msaa || 0 });
 rt.depthTexture = new THREE.DepthTexture(1920, 1080);
 rt.depthTexture.type = THREE.UnsignedIntType;
 const composer = new EffectComposer(renderer, rt);
@@ -291,6 +433,18 @@ const composer = new EffectComposer(renderer, rt);
 composer.renderTarget2.depthTexture = new THREE.DepthTexture(1920, 1080);
 composer.renderTarget2.depthTexture.type = THREE.UnsignedIntType;
 composer.addPass(new RenderPass(scene, camera));
+// runtime.lighting.heightFog / runtime.cloudSea: UE-style height fog and ray-marched cloud deck (see fog.js)
+// runtime.lighting.grade: { tint, shadowTint, saturation } colour grade applied in the same pass
+if (RL.heightFog || runtime.cloudSea || RL.grade) composer.addPass(new FogPass(camera, RL.heightFog, runtime.cloudSea, RL.grade, RL.backlight));
+// runtime.lighting.gtao: screen-space ambient occlusion (darkens corners and contact shadows, approximates GI occlusion)
+if (RL.gtao) {
+  const gtao = new GTAOPass(scene, camera, 1920, 1080);
+  gtao.output = GTAOPass.OUTPUT.Default;
+  gtao.blendIntensity = RL.gtao.intensity ?? 1.0;
+  gtao.updateGtaoMaterial({ radius: RL.gtao.radius ?? 0.5, distanceExponent: RL.gtao.falloff ?? 2, thickness: RL.gtao.thickness ?? 2, scale: RL.gtao.scale ?? 1 });
+  gtao.updatePdMaterial({ lumaPhi: RL.gtao.lumaPhi ?? 10, depthPhi: RL.gtao.depthPhi ?? 2, normalPhi: RL.gtao.normalPhi ?? 3, radius: RL.gtao.denoiseRadius ?? 4, rings: 2, samples: 16 });
+  composer.addPass(gtao);
+}
 // 三渲二: depth ink lines on every object + saturation lift, before bloom so the glow stays soft
 const anime = new AnimePass(camera);
 if (!REAL) composer.addPass(anime);
@@ -335,7 +489,11 @@ function applyParallax(dt) {
 }
 
 // ---------------- interactions ----------------
-const interact = setupInteractions({ THREE, scene, room, camera, renderer, meta, lightsByName, matCache, runtime });
+// runtime.dragon: eye trail, nostril steam and click-to-breathe frost (see dragon.js)
+const dragon = runtime.dragon ? setupDragon({ scene, room, camera, renderer, mixer, lightsByName, cfg: runtime.dragon }) : null;
+// runtime.sway: procedural breathing / arm swing on top of the character's loop (see sway.js)
+const sway = runtime.sway ? setupSway({ room, mixer, cfg: runtime.sway }) : null;
+const interact = setupInteractions({ THREE, scene, room, camera, renderer, meta, lightsByName, matCache, runtime, dragon });
 
 // ---------------- settings live-update (Wallpaper Engine user properties) ----------------
 onSettings((s, changed) => {
@@ -370,6 +528,11 @@ function frame(now) {
   const dt = Math.min(0.1, (now - last) / 1000);
   last = now;
   applyParallax(dt);
+  if (mixer) mixer.update(dt);
+  if (rimU) rimU.uRimDir.value.copy(rimWorld).transformDirection(camera.matrixWorldInverse);
+  if (sway) sway.update(dt);
+  if (dragon) dragon.update(dt);
+  updateSnow(dt, now / 1000);
   interact.update(dt, now / 1000);
   composer.render(dt);
   frames++; fpsT += dt;

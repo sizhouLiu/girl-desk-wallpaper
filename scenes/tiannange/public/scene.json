@@ -1,0 +1,285 @@
+{
+ "cameras": {
+  "CAM_TianNanGe": {
+   "aspect": 2.06718,
+   "pos": [
+    -4.4,
+    0.72,
+    0.05
+   ],
+   "quat": [
+    0.55006,
+    -0.44981,
+    0.48944,
+    0.50552
+   ],
+   "lens": 31.9449,
+   "sensor": 36.0,
+   "fov": 41.17711022283709
+  }
+ },
+ "lights": [
+  {
+   "name": "DirectionalLight",
+   "type": "SUN",
+   "energy": 4.400000095367432,
+   "color": [
+    1.0,
+    0.9168820977210999,
+    0.8469076156616211
+   ],
+   "pos": [
+    4.04,
+    1.5,
+    -0.0
+   ],
+   "dir": [
+    -0.2462,
+    -0.309,
+    0.9187
+   ],
+   "size": 0,
+   "radius": 0.0,
+   "angle": 0.06981316953897476
+  },
+  {
+   "name": "Dragon_EyeGold_L",
+   "type": "POINT",
+   "energy": 2.0,
+   "color": [
+    1.0,
+    0.8313725590705872,
+    0.5058823823928833
+   ],
+   "pos": [
+    0.9302,
+    1.7744,
+    -1.6971
+   ],
+   "dir": [
+    0.9769,
+    -0.0879,
+    -0.1948
+   ],
+   "size": 0,
+   "radius": 0.05000000074505806
+  },
+  {
+   "name": "Dragon_EyeGold_R",
+   "type": "POINT",
+   "energy": 2.0,
+   "color": [
+    1.0,
+    0.8313725590705872,
+    0.5058823823928833
+   ],
+   "pos": [
+    1.2952,
+    2.0659,
+    -2.508
+   ],
+   "dir": [
+    0.9769,
+    -0.0879,
+    -0.1948
+   ],
+   "size": 0,
+   "radius": 0.05000000074505806
+  },
+  {
+   "name": "LGT_BackRim",
+   "type": "SUN",
+   "energy": 9.0,
+   "color": [
+    1.0,
+    0.9399999976158142,
+    0.8399999737739563
+   ],
+   "pos": [
+    0.0,
+    10.0,
+    -0.0
+   ],
+   "dir": [
+    -0.6947,
+    -0.5299,
+    -0.4864
+   ],
+   "size": 0,
+   "radius": 0.0,
+   "angle": 0.02617993950843811
+  },
+  {
+   "name": "Reference - Dragon sculpting key",
+   "type": "AREA",
+   "energy": 20.0,
+   "color": [
+    1.0,
+    0.9383597373962402,
+    0.8835427761077881
+   ],
+   "pos": [
+    -2.8,
+    5.6,
+    -3.4
+   ],
+   "dir": [
+    0.6423,
+    -0.6515,
+    0.4037
+   ],
+   "size": 4.5,
+   "radius": 0.0
+  },
+  {
+   "name": "Reference - Dragon warm rim",
+   "type": "AREA",
+   "energy": 100.0,
+   "color": [
+    1.0,
+    0.8353198766708374,
+    0.7031224370002747
+   ],
+   "pos": [
+    2.6,
+    4.9,
+    1.0
+   ],
+   "dir": [
+    -0.4841,
+    -0.6051,
+    -0.632
+   ],
+   "size": 1.100000023841858,
+   "radius": 0.0
+  },
+  {
+   "name": "Reference - Hero soft key",
+   "type": "AREA",
+   "energy": 8.5,
+   "color": [
+    1.0,
+    0.8782289028167725,
+    0.7797585725784302
+   ],
+   "pos": [
+    -1.7,
+    2.55,
+    -1.0
+   ],
+   "dir": [
+    0.7322,
+    -0.3877,
+    0.5599
+   ],
+   "size": 1.7999999523162842,
+   "radius": 0.0
+  },
+  {
+   "name": "Reference - Hero warm rim",
+   "type": "AREA",
+   "energy": 26.0,
+   "color": [
+    1.0,
+    0.8167412281036377,
+    0.6691604256629944
+   ],
+   "pos": [
+    1.6,
+    2.8,
+    1.5
+   ],
+   "dir": [
+    -0.689,
+    -0.5168,
+    -0.5081
+   ],
+   "size": 1.0,
+   "radius": 0.0
+  },
+  {
+   "name": "SpotLight",
+   "type": "SPOT",
+   "energy": 351.8583679199219,
+   "color": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "pos": [
+    20.0047,
+    8.4779,
+    1.088
+   ],
+   "dir": [
+    -0.0,
+    -0.5159,
+    0.8567
+   ],
+   "size": 0,
+   "radius": 0.0
+  },
+  {
+   "name": "SpotLight2",
+   "type": "SPOT",
+   "energy": 226.19467163085938,
+   "color": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "pos": [
+    39.433,
+    15.9894,
+    6.4335
+   ],
+   "dir": [
+    0.0,
+    -0.7339,
+    0.6793
+   ],
+   "size": 0,
+   "radius": 0.0
+  }
+ ],
+ "books": {},
+ "interactive": {},
+ "outlined": [],
+ "emissive": {
+  "M_OpaqueFrostedIce": 1.0,
+  "M_PowderSnow": 1.0,
+  "M_PowderSnow.001": 1.0,
+  "M_PowderSnow.002": 1.0,
+  "M_WeatheredBridgeTimber": 1.0,
+  "M_WeatheredBridgeTimber.001": 1.0,
+  "M_WeatheredBridgeTimber.002": 1.0,
+  "tripo_mat_0dc344a5-56b6-49f9-8af5-3459949b1e85": 1.0,
+  "tripo_mat_cd8f64be-8698-412c-96a5-c6e5eaef2dd2": 1.0,
+  "tripo_mat_d65ef73a-e158-489f-9b02-149bc2499f39": 1.0,
+  "WorldGridMaterial": 1.0,
+  "WorldGridMaterial.001": 1.0,
+  "WorldGridMaterial.002": 1.0,
+  "WorldGridMaterial.003": 1.0,
+  "WorldGridMaterial.004": 1.0,
+  "WorldGridMaterial.005": 1.0,
+  "WorldGridMaterial.006": 1.0,
+  "WorldGridMaterial.007": 1.0,
+  "WorldGridMaterial.008": 1.0
+ },
+ "shadowOnly": [],
+ "noShadow": [],
+ "world": {
+  "color": [
+   0.42,
+   0.56,
+   0.74
+  ],
+  "strength": 1.0,
+  "textured": false
+ },
+ "exposure": 0.0,
+ "render": [
+  1600,
+  774
+ ]
+}
