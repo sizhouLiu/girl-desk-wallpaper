@@ -189,7 +189,21 @@ function seamlessLoop(clip) {
   return clip;
 }
 const mixer = gltf.animations.length ? new THREE.AnimationMixer(room) : null;
-if (mixer) for (const clip of gltf.animations) mixer.clipAction(seamlessLoop(clip)).play();
+const girlIdles = [];
+for (const clip of gltf.animations) {
+  if (clip.name.startsWith('GirlIdle_')) girlIdles.push(clip);
+  else mixer.clipAction(seamlessLoop(clip)).play();
+}
+let idleIndex = 0, idleAction;
+function playNextIdle() {
+  idleAction?.stop();
+  idleAction = mixer.clipAction(girlIdles[idleIndex]);
+  idleAction.setLoop(THREE.LoopOnce, 1);
+  idleAction.clampWhenFinished = true;
+  idleAction.reset().play();
+  idleIndex = (idleIndex + 1) % girlIdles.length;
+}
+if (girlIdles.length) playNextIdle();
 // runtime.snow: { count, area: [w, h, d] metres around the camera, fall (m/s), wind: [x, z] m/s, size }
 // falling flakes wrap inside a box that follows the camera, so the layer costs one draw call
 let snow = null;
@@ -317,7 +331,11 @@ room.traverse((o) => {
   if (!REAL && (outlined.has(o.name) || outlined.has(base) || outlined.has(parentName))) {
     bakeOutlineColors(o.geometry, Array.isArray(dst) ? dst[0] : dst);
     const om = outlineMaterial({ width: settings.outline, vertexColor: true });
-    const hull = new THREE.Mesh(o.geometry, om);
+    const hull = o.isSkinnedMesh ? new THREE.SkinnedMesh(o.geometry, om) : new THREE.Mesh(o.geometry, om);
+    if (o.isSkinnedMesh) {
+      hull.bind(o.skeleton, o.bindMatrix);
+      hull.frustumCulled = false;
+    }
     hull.name = o.name + '__outline';
     hull.raycast = () => {};
     hull.renderOrder = -1;
@@ -529,6 +547,7 @@ function frame(now) {
   last = now;
   applyParallax(dt);
   if (mixer) mixer.update(dt);
+  if (idleAction?.paused) playNextIdle();
   if (rimU) rimU.uRimDir.value.copy(rimWorld).transformDirection(camera.matrixWorldInverse);
   if (sway) sway.update(dt);
   if (dragon) dragon.update(dt);

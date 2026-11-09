@@ -89,9 +89,15 @@ uniform float uWidth;
 uniform vec2  uResolution;
 attribute vec3 color;
 varying vec3 vCol;
+#include <skinning_pars_vertex>
 void main() {
-  vec4 clip = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  vec3 n = normalize(normalMatrix * normal);
+  #include <beginnormal_vertex>
+  #include <skinbase_vertex>
+  #include <skinnormal_vertex>
+  #include <begin_vertex>
+  #include <skinning_vertex>
+  vec4 clip = projectionMatrix * modelViewMatrix * vec4(transformed, 1.0);
+  vec3 n = normalize(normalMatrix * objectNormal);
   vec2 dir = (projectionMatrix * vec4(n, 0.0)).xy;
   float len = length(dir);
   dir = len > 1e-6 ? dir / len : vec2(0.0);
